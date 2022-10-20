@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option go_package = "../pb";
+
+package grpc_hwdhy;
+
+service User {
+    rpc Register (UserRegisterRequest) returns (UserRegisterResponse) {}
+}
+
+// user register
+message UserRegisterRequest {
+    string username = 1;
+    string password = 2;
+    string user_type = 3;
+}
+
+message UserRegisterResponse {
+    string status = 1;
+}
