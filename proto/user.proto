@@ -2,11 +2,18 @@ syntax = "proto3";
 
 option go_package = "../pb";
 
+import "google/api/annotations.proto";
+
 package grpc_hwdhy;
 
 service User {
   rpc Register (UserRegisterRequest) returns (UserRegisterResponse) {}
-  rpc Login (UserLoginRequest) returns (UserLoginResponse) {}
+  rpc Login (UserLoginRequest) returns (UserLoginResponse) {
+    option (google.api.http) = {
+      post : "/v1/user/login"
+      body: "*"
+    };
+  }
 }
 
 // user register

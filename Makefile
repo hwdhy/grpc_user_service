@@ -1,11 +1,17 @@
 gen:
-	protoc --go_out=./pb  --go-grpc_out=./pb  proto/*.proto
+	protoc -I ./proto --go_out=./pb  --go-grpc_out=./pb --grpc-gateway_out=./pb   proto/*.proto
 
-run:
-	go run ./cmd/serve/main.go
+run_grpc:
+	go run ./cmd/serve/main.go -port 50051
+
+run_rest:
+	go run ./cmd/serve/main.go -type rest -port 8080 -endpoint 0.0.0.0:50051
 
 client:
 	go run ./cmd/client/main.go
 
+secret:
+	cd cert && gen.sh && cd ..
+
 .PHONY:
-	gen run client
+	gen run_grpc run_rest client secret
