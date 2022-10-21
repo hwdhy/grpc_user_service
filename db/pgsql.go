@@ -2,11 +2,11 @@ package db
 
 import (
 	"fmt"
+	"github.com/sirupsen/logrus"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"grpc_demo"
 	"grpc_demo/models"
-	"log"
 	"time"
 )
 
@@ -25,7 +25,7 @@ func InitConnectionPgsql() {
 	DB.SetConnMaxIdleTime(10)
 	DB.SetConnMaxLifetime(time.Minute)
 	if err != nil {
-		log.Fatal("connect pgsql db err:", err)
+		logrus.Fatalf("connect pgsql db err: %v", err)
 	}
 
 	PgsqlDB = pDB

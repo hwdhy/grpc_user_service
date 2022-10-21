@@ -5,16 +5,26 @@ option go_package = "../pb";
 package grpc_hwdhy;
 
 service User {
-    rpc Register (UserRegisterRequest) returns (UserRegisterResponse) {}
+  rpc Register (UserRegisterRequest) returns (UserRegisterResponse) {}
+  rpc Login (UserLoginRequest) returns (UserLoginResponse) {}
 }
 
 // user register
 message UserRegisterRequest {
-    string username = 1;
-    string password = 2;
-    string user_type = 3;
+  string username = 1;
+  string password = 2;
+  string user_type = 3;
 }
 
 message UserRegisterResponse {
-    string status = 1;
+  string status = 1;
+}
+
+message UserLoginRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message UserLoginResponse {
+  string status = 1;
 }

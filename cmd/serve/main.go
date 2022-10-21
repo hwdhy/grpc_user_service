@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	"grpc_demo/db"
 	"grpc_demo/pb"
@@ -29,6 +30,7 @@ func main() {
 
 	s := grpc.NewServer()
 	pb.RegisterUserServer(s, &service.User{})
-	log.Printf("server listening at %v", listen.Addr())
-	log.Fatal(s.Serve(listen))
+	logrus.Printf("server listening at %v", listen.Addr())
+	// 启动服务
+	logrus.Fatal(s.Serve(listen))
 }
