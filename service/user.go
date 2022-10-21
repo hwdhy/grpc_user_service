@@ -58,3 +58,28 @@ func (u *User) Login(ctx context.Context, input *pb.UserLoginRequest) (*pb.UserL
 	logrus.Printf("user(%s) login success", input.Username)
 	return &pb.UserLoginResponse{Status: "success"}, nil
 }
+
+func (u *User) List(ctx context.Context, input *pb.UserListRequest) (*pb.UserListResponse, error) {
+	offset := (input.Page - 1) * input.PageSize
+
+	var users []models.User
+	if err := db.PgsqlDB.Model(models.User{}).Offset(int(offset)).Limit(int(input.PageSize)).Find(&users).Error; err != nil {
+		logrus.Errorf("select user err:%v", err)
+	}
+
+	res := make([]*pb.UserList, len(users))
+	for index, user := range users {
+
+		res[index] = &pb.UserList{
+			Id:         uint32(user.ID),
+			Username:   user.Username,
+			Password:   user.Password,
+			Type:       user.Type,
+			Ip:         user.IP,
+			CreateTime: user.CreatedAt.Format("2006-01-02 15:04:05"),
+		}
+	}
+	return &pb.UserListResponse{
+		Data: res,
+	}, nil
+}

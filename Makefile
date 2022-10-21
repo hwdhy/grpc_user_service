@@ -15,3 +15,5 @@ secret:
 
 .PHONY:
 	gen run_grpc run_rest client secret
+
+
