@@ -41,7 +41,13 @@ func main() {
 }
 
 func runGRPCServer(listen net.Listener) error {
-	server := grpc.NewServer()
+	interceptor := service.NewAuthInterceptor()
+
+	serverOptions := []grpc.ServerOption{
+		grpc.UnaryInterceptor(interceptor.Unary()),
+	}
+
+	server := grpc.NewServer(serverOptions...)
 	pb.RegisterUserServer(server, &service.User{})
 	logrus.Printf("server listening at %v", listen.Addr())
 
