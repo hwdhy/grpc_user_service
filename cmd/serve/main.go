@@ -8,8 +8,8 @@ import (
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	"grpc_demo/db"
-	"grpc_demo/pb"
 	"grpc_demo/service"
+	"hwdhy/utools/pb/userPB"
 	"log"
 	"math/rand"
 	"net"
@@ -48,7 +48,7 @@ func runGRPCServer(listen net.Listener) error {
 	}
 
 	server := grpc.NewServer(serverOptions...)
-	pb.RegisterUserServer(server, &service.User{})
+	userPB.RegisterUserServer(server, &service.User{})
 	logrus.Printf("server listening at %v", listen.Addr())
 
 	return server.Serve(listen)
@@ -61,7 +61,7 @@ func runRESTServer(listen net.Listener) error {
 	ctx, cancelFunc := context.WithCancel(context.Background())
 	defer cancelFunc()
 
-	err := pb.RegisterUserHandlerFromEndpoint(ctx, mux, *endpoint, dialOptions)
+	err := userPB.RegisterUserHandlerFromEndpoint(ctx, mux, *endpoint, dialOptions)
 	if err != nil {
 		logrus.Fatal(err)
 	}

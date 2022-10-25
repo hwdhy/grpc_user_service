@@ -6,7 +6,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
-	"grpc_demo/pb"
+	"hwdhy/utools/pb/userPB"
 	"log"
 	"time"
 )
@@ -28,7 +28,7 @@ func main() {
 		log.Fatalf("dial server err: %v", err)
 	}
 	defer conn.Close()
-	c := pb.NewUserClient(conn)
+	c := userPB.NewUserClient(conn)
 
 	ctx, cancelFunc := context.WithTimeout(context.Background(), time.Second)
 	defer cancelFunc()
@@ -38,7 +38,7 @@ func main() {
 	//	Password: "2222",
 	//})
 
-	response, err := c.Login(ctx, &pb.UserLoginRequest{
+	response, err := c.Login(ctx, &userPB.UserLoginRequest{
 		Username: "1111",
 		Password: "2222",
 	})

@@ -8,18 +8,18 @@ import (
 	"github.com/sirupsen/logrus"
 	"grpc_demo/db"
 	"grpc_demo/models"
-	"grpc_demo/pb"
-	"grpc_demo/tools"
+	"hwdhy/utools/common"
+	"hwdhy/utools/pb/userPB"
 )
 
 type User struct {
-	pb.UnimplementedUserServer
+	userPB.UnimplementedUserServer
 }
 
 // Register 用户注册
-func (u *User) Register(ctx context.Context, input *pb.UserRegisterRequest) (*pb.UserRegisterResponse, error) {
+func (u *User) Register(ctx context.Context, input *userPB.UserRegisterRequest) (*userPB.UserRegisterResponse, error) {
 	// 生成4为随机盐值
-	salt := tools.RandomString(4)
+	salt := common.RandomString(4)
 	hash := md5.New()
 	hash.Write([]byte(input.GetPassword()))
 	hashPassword := hex.EncodeToString(hash.Sum([]byte(salt)))
@@ -31,15 +31,15 @@ func (u *User) Register(ctx context.Context, input *pb.UserRegisterRequest) (*pb
 	}
 	if err := db.PgsqlDB.Model(models.User{}).Create(&userData).Error; err != nil {
 		logrus.Printf("register user err: %v", err)
-		return &pb.UserRegisterResponse{Status: "error"}, err
+		return &userPB.UserRegisterResponse{Status: "error"}, err
 	}
 	logrus.Printf("create user(%+v) success", userData)
 
-	return &pb.UserRegisterResponse{Status: "success"}, nil
+	return &userPB.UserRegisterResponse{Status: "success"}, nil
 }
 
 // Login 用户登录
-func (u *User) Login(ctx context.Context, input *pb.UserLoginRequest) (*pb.UserLoginResponse, error) {
+func (u *User) Login(ctx context.Context, input *userPB.UserLoginRequest) (*userPB.UserLoginResponse, error) {
 	// 1. 判断用户是否存在
 	var user models.User
 	if err := db.PgsqlDB.Model(models.User{}).Where("username = ?", input.Username).First(&user).Error; err != nil {
@@ -56,10 +56,10 @@ func (u *User) Login(ctx context.Context, input *pb.UserLoginRequest) (*pb.UserL
 		return nil, errors.New("password does not match")
 	}
 	logrus.Printf("user(%s) login success", input.Username)
-	return &pb.UserLoginResponse{Status: "success"}, nil
+	return &userPB.UserLoginResponse{Status: "success"}, nil
 }
 
-func (u *User) List(ctx context.Context, input *pb.UserListRequest) (*pb.UserListResponse, error) {
+func (u *User) List(ctx context.Context, input *userPB.UserListRequest) (*userPB.UserListResponse, error) {
 	offset := (input.Page - 1) * input.PageSize
 
 	var users []models.User
@@ -67,10 +67,10 @@ func (u *User) List(ctx context.Context, input *pb.UserListRequest) (*pb.UserLis
 		logrus.Errorf("select user err:%v", err)
 	}
 
-	res := make([]*pb.UserList, len(users))
+	res := make([]*userPB.UserList, len(users))
 	for index, user := range users {
 
-		res[index] = &pb.UserList{
+		res[index] = &userPB.UserList{
 			Id:         uint32(user.ID),
 			Username:   user.Username,
 			Password:   user.Password,
@@ -79,7 +79,7 @@ func (u *User) List(ctx context.Context, input *pb.UserListRequest) (*pb.UserLis
 			CreateTime: user.CreatedAt.Format("2006-01-02 15:04:05"),
 		}
 	}
-	return &pb.UserListResponse{
+	return &userPB.UserListResponse{
 		Data: res,
 	}, nil
 }
