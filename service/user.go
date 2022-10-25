@@ -2,8 +2,6 @@ package service
 
 import (
 	"context"
-	"crypto/md5"
-	"encoding/hex"
 	"errors"
 	"github.com/sirupsen/logrus"
 	"grpc_demo/db"
@@ -20,9 +18,7 @@ type User struct {
 func (u *User) Register(ctx context.Context, input *userPB.UserRegisterRequest) (*userPB.UserRegisterResponse, error) {
 	// 生成4为随机盐值
 	salt := common.RandomString(4)
-	hash := md5.New()
-	hash.Write([]byte(input.GetPassword()))
-	hashPassword := hex.EncodeToString(hash.Sum([]byte(salt)))
+	hashPassword := common.StringHash(input.GetPassword(), salt)
 
 	userData := models.User{
 		Username: input.GetUsername(),
@@ -49,9 +45,7 @@ func (u *User) Login(ctx context.Context, input *userPB.UserLoginRequest) (*user
 		return nil, errors.New("user not exist")
 	}
 	// 2. 密码校验
-	hash := md5.New()
-	hash.Write([]byte(input.Password))
-	hashPassword := hex.EncodeToString(hash.Sum([]byte(user.Salt)))
+	hashPassword := common.StringHash(input.Password, user.Salt)
 	if hashPassword != user.Password {
 		return nil, errors.New("password does not match")
 	}
