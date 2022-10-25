@@ -5,6 +5,7 @@ import (
 	"errors"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc/metadata"
+	"grpc_demo"
 	"grpc_demo/db"
 	"grpc_demo/models"
 	"hwdhy/utools/common"
@@ -56,7 +57,9 @@ func (u *User) Login(ctx context.Context, input *userPB.UserLoginRequest) (*user
 		return nil, errors.New("password does not match")
 	}
 	logrus.Printf("user(%s) login success", input.Username)
-	return &userPB.UserLoginResponse{Status: "success"}, nil
+
+	token := common.GenerateToken(uint64(user.ID), grpc_demo.TokenKey)
+	return &userPB.UserLoginResponse{Token: token}, nil
 }
 
 func (u *User) List(ctx context.Context, input *userPB.UserListRequest) (*userPB.UserListResponse, error) {

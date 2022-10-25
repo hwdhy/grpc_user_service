@@ -45,5 +45,5 @@ func main() {
 	if err != nil {
 		logrus.Fatalf("could not greet: %v", err)
 	}
-	logrus.Printf("create user %v", response.GetStatus())
+	logrus.Printf("create user %v", response.GetToken())
 }

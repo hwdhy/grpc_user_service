@@ -46,7 +46,7 @@ message UserLoginRequest {
 }
 
 message UserLoginResponse {
-  string status = 1;
+  string token = 1;
 }
 
 message UserListRequest {
