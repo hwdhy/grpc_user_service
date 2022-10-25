@@ -7,7 +7,12 @@ import "google/api/annotations.proto";
 package grpc_hwdhy;
 
 service User {
-  rpc Register (UserRegisterRequest) returns (UserRegisterResponse) {}
+  rpc Register (UserRegisterRequest) returns (UserRegisterResponse) {
+    option (google.api.http) = {
+      post : "/v1/user/register"
+      body: "*"
+    };
+  }
 
   rpc List (UserListRequest) returns (UserListResponse) {
     option (google.api.http) = {

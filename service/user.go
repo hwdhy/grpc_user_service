@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"github.com/sirupsen/logrus"
+	"google.golang.org/grpc/metadata"
 	"grpc_demo/db"
 	"grpc_demo/models"
 	"hwdhy/utools/common"
@@ -20,10 +21,15 @@ func (u *User) Register(ctx context.Context, input *userPB.UserRegisterRequest) 
 	salt := common.RandomString(4)
 	hashPassword := common.StringHash(input.GetPassword(), salt)
 
+	// get request ip
+	md, _ := metadata.FromIncomingContext(ctx)
+	remoteIP := md["x-forwarded-for"][0]
+
 	userData := models.User{
 		Username: input.GetUsername(),
 		Password: hashPassword,
 		Salt:     salt,
+		IP:       remoteIP,
 	}
 	if err := db.PgsqlDB.Model(models.User{}).Create(&userData).Error; err != nil {
 		logrus.Printf("register user err: %v", err)
