@@ -1,0 +1,4 @@
+p, admin, /*, *
+p, anonymous, /grpc_hwdhy.User/Login, *
+p, member, /logout, *
+p, member, /member/*, *

@@ -4,6 +4,7 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"github.com/casbin/casbin/v2"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
@@ -41,10 +42,15 @@ func main() {
 }
 
 func runGRPCServer(listen net.Listener) error {
+	enforcer, err := casbin.NewEnforcer("./auth_model.conf", "./policy.csv")
+	if err != nil {
+		logrus.Fatal(err)
+	}
+
 	interceptor := service.NewAuthInterceptor()
 
 	serverOptions := []grpc.ServerOption{
-		grpc.UnaryInterceptor(interceptor.Unary()),
+		grpc.UnaryInterceptor(interceptor.Unary(enforcer)),
 	}
 
 	server := grpc.NewServer(serverOptions...)

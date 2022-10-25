@@ -2,8 +2,8 @@ package service
 
 import (
 	"context"
-	"fmt"
-	"github.com/sirupsen/logrus"
+	"errors"
+	"github.com/casbin/casbin/v2"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 	"grpc_demo"
@@ -17,18 +17,24 @@ func NewAuthInterceptor() *AuthInterceptor {
 	return &AuthInterceptor{}
 }
 
-func (interceptor *AuthInterceptor) Unary() grpc.UnaryServerInterceptor {
+func (interceptor *AuthInterceptor) Unary(enforcer *casbin.Enforcer) grpc.UnaryServerInterceptor {
 	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
 
 		md, _ := metadata.FromIncomingContext(ctx)
-
 		token := md["grpcgateway-cookie"][0]
-		userID := common.GetUserID(token, grpc_demo.TokenKey)
-		if userID == 0 {
-			return nil, fmt.Errorf("user not exist")
-		}
+		_, role := common.GetUserID(token, grpc_demo.TokenKey)
 
-		logrus.Printf("--- interceptor: %s", info.FullMethod)
-		return handler(ctx, req)
+		if role == "" {
+			role = "anonymous"
+		}
+		res, err := enforcer.Enforce(role, info.FullMethod, info.Server)
+		if err != nil {
+			return nil, errors.New("permission verification failure")
+		}
+		if res {
+			return handler(ctx, req)
+		} else {
+			return nil, errors.New("unauthorized")
+		}
 	}
 }

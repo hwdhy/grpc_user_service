@@ -58,7 +58,7 @@ func (u *User) Login(ctx context.Context, input *userPB.UserLoginRequest) (*user
 	}
 	logrus.Printf("user(%s) login success", input.Username)
 
-	token := common.GenerateToken(uint64(user.ID), grpc_demo.TokenKey)
+	token := common.GenerateToken(uint64(user.ID), user.Role, grpc_demo.TokenKey)
 	return &userPB.UserLoginResponse{Token: token}, nil
 }
 
