@@ -7,7 +7,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 	"grpc_demo"
-	"hwdhy/utools/common"
+	"hwdhy/Htools/common"
 )
 
 type AuthInterceptor struct {
@@ -22,11 +22,12 @@ func (interceptor *AuthInterceptor) Unary(enforcer *casbin.Enforcer) grpc.UnaryS
 
 		md, _ := metadata.FromIncomingContext(ctx)
 		token := md["grpcgateway-cookie"][0]
-		_, role := common.GetUserID(token, grpc_demo.TokenKey)
 
+		_, role := common.GetUserID(token, grpc_demo.TokenKey)
 		if role == "" {
-			role = "anonymous"
+			role = "tourists"
 		}
+
 		res, err := enforcer.Enforce(role, info.FullMethod, info.Server)
 		if err != nil {
 			return nil, errors.New("permission verification failure")

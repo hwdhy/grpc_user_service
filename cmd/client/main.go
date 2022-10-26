@@ -6,7 +6,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
-	"hwdhy/utools/pb/userPB"
+	"hwdhy/Htools/pb/userPB"
 	"log"
 	"time"
 )

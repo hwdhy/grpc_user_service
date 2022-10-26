@@ -8,9 +8,15 @@ import (
 	"grpc_demo"
 	"grpc_demo/db"
 	"grpc_demo/models"
-	"hwdhy/utools/common"
-	"hwdhy/utools/pb/userPB"
+	"hwdhy/Htools/common"
+	"hwdhy/Htools/pb/userPB"
 )
+
+var UserPermission = map[string]int{
+	"/grpc_hwdhy.User/List":     common.Admin,
+	"/grpc_hwdhy.User/Register": common.NotLogged,
+	"/grpc_hwdhy.User/Login":    common.NotLogged,
+}
 
 type User struct {
 	userPB.UnimplementedUserServer

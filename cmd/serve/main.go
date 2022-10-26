@@ -4,13 +4,13 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"github.com/casbin/casbin/v2"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	"grpc_demo/db"
 	"grpc_demo/service"
-	"hwdhy/utools/pb/userPB"
+	"hwdhy/Htools/common"
+	"hwdhy/Htools/pb/userPB"
 	"log"
 	"math/rand"
 	"net"
@@ -41,25 +41,26 @@ func main() {
 	}
 }
 
+// 启动grpc服务
 func runGRPCServer(listen net.Listener) error {
-	enforcer, err := casbin.NewEnforcer("./auth_model.conf", "./policy.csv")
-	if err != nil {
-		logrus.Fatal(err)
-	}
+	//更新接口权限
+	e := common.InitAdapter([]map[string]int{
+		service.UserPermission,
+	})
 
 	interceptor := service.NewAuthInterceptor()
-
 	serverOptions := []grpc.ServerOption{
-		grpc.UnaryInterceptor(interceptor.Unary(enforcer)),
+		grpc.UnaryInterceptor(interceptor.Unary(e)),
 	}
 
 	server := grpc.NewServer(serverOptions...)
 	userPB.RegisterUserServer(server, &service.User{})
-	logrus.Printf("server listening at %v", listen.Addr())
 
+	logrus.Printf("server listening at %v", listen.Addr())
 	return server.Serve(listen)
 }
 
+// 启动rest服务
 func runRESTServer(listen net.Listener) error {
 	mux := runtime.NewServeMux()
 	dialOptions := []grpc.DialOption{grpc.WithInsecure()}
