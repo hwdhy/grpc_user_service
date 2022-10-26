@@ -3,13 +3,13 @@ package service
 import (
 	"context"
 	"errors"
+	"github.com/hwdhy/utools/common"
+	"github.com/hwdhy/utools/pb/user_pb"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc/metadata"
 	"grpc_demo"
 	"grpc_demo/db"
 	"grpc_demo/models"
-	"hwdhy/Htools/common"
-	"hwdhy/Htools/pb/userPB"
 )
 
 var UserPermission = map[string]int{
@@ -19,11 +19,11 @@ var UserPermission = map[string]int{
 }
 
 type User struct {
-	userPB.UnimplementedUserServer
+	user_pb.UnimplementedUserServer
 }
 
 // Register 用户注册
-func (u *User) Register(ctx context.Context, input *userPB.UserRegisterRequest) (*userPB.UserRegisterResponse, error) {
+func (u *User) Register(ctx context.Context, input *user_pb.UserRegisterRequest) (*user_pb.UserRegisterResponse, error) {
 	// 生成4为随机盐值
 	salt := common.RandomString(4)
 	hashPassword := common.StringHash(input.GetPassword(), salt)
@@ -48,7 +48,7 @@ func (u *User) Register(ctx context.Context, input *userPB.UserRegisterRequest) 
 }
 
 // Login 用户登录
-func (u *User) Login(ctx context.Context, input *userPB.UserLoginRequest) (*userPB.UserLoginResponse, error) {
+func (u *User) Login(ctx context.Context, input *user_pb.UserLoginRequest) (*user_pb.UserLoginResponse, error) {
 	// 1. 判断用户是否存在
 	var user models.User
 	if err := db.PgsqlDB.Model(models.User{}).Where("username = ?", input.Username).First(&user).Error; err != nil {
@@ -68,7 +68,7 @@ func (u *User) Login(ctx context.Context, input *userPB.UserLoginRequest) (*user
 	return &userPB.UserLoginResponse{Token: token}, nil
 }
 
-func (u *User) List(ctx context.Context, input *userPB.UserListRequest) (*userPB.UserListResponse, error) {
+func (u *User) List(ctx context.Context, input *user_pb.UserListRequest) (*user_pb.UserListResponse, error) {
 	offset := (input.Page - 1) * input.PageSize
 
 	var users []models.User

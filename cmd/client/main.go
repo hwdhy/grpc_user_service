@@ -3,10 +3,10 @@ package main
 import (
 	"context"
 	"flag"
+	"github.com/hwdhy/utools/pb/user_pb"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
-	"hwdhy/Htools/pb/userPB"
 	"log"
 	"time"
 )
@@ -28,7 +28,7 @@ func main() {
 		log.Fatalf("dial server err: %v", err)
 	}
 	defer conn.Close()
-	c := userPB.NewUserClient(conn)
+	c := user_pb.NewUserClient(conn)
 
 	ctx, cancelFunc := context.WithTimeout(context.Background(), time.Second)
 	defer cancelFunc()
@@ -38,7 +38,7 @@ func main() {
 	//	Password: "2222",
 	//})
 
-	response, err := c.Login(ctx, &userPB.UserLoginRequest{
+	response, err := c.Login(ctx, &user_pb.UserLoginRequest{
 		Username: "1111",
 		Password: "2222",
 	})

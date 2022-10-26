@@ -3,11 +3,10 @@ package service
 import (
 	"context"
 	"errors"
-	"github.com/casbin/casbin/v2"
+	"github.com/hwdhy/utools/common"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 	"grpc_demo"
-	"hwdhy/Htools/common"
 )
 
 type AuthInterceptor struct {
