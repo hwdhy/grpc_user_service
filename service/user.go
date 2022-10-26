@@ -3,8 +3,8 @@ package service
 import (
 	"context"
 	"errors"
-	"github.com/hwdhy/utools/common"
-	"github.com/hwdhy/utools/pb/user_pb"
+	"github.com/hwdhy/grpc_tools/common"
+	"github.com/hwdhy/grpc_tools/pb/user_pb"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc/metadata"
 	"grpc_demo"
@@ -40,11 +40,11 @@ func (u *User) Register(ctx context.Context, input *user_pb.UserRegisterRequest)
 	}
 	if err := db.PgsqlDB.Model(models.User{}).Create(&userData).Error; err != nil {
 		logrus.Printf("register user err: %v", err)
-		return &userPB.UserRegisterResponse{Status: "error"}, err
+		return &user_pb.UserRegisterResponse{Status: "error"}, err
 	}
 	logrus.Printf("create user(%+v) success", userData)
 
-	return &userPB.UserRegisterResponse{Status: "success"}, nil
+	return &user_pb.UserRegisterResponse{Status: "success"}, nil
 }
 
 // Login 用户登录
@@ -65,7 +65,7 @@ func (u *User) Login(ctx context.Context, input *user_pb.UserLoginRequest) (*use
 	logrus.Printf("user(%s) login success", input.Username)
 
 	token := common.GenerateToken(uint64(user.ID), user.Role, grpc_demo.TokenKey)
-	return &userPB.UserLoginResponse{Token: token}, nil
+	return &user_pb.UserLoginResponse{Token: token}, nil
 }
 
 func (u *User) List(ctx context.Context, input *user_pb.UserListRequest) (*user_pb.UserListResponse, error) {
@@ -76,10 +76,10 @@ func (u *User) List(ctx context.Context, input *user_pb.UserListRequest) (*user_
 		logrus.Errorf("select user err:%v", err)
 	}
 
-	res := make([]*userPB.UserList, len(users))
+	res := make([]*user_pb.UserList, len(users))
 	for index, user := range users {
 
-		res[index] = &userPB.UserList{
+		res[index] = &user_pb.UserList{
 			Id:         uint32(user.ID),
 			Username:   user.Username,
 			Password:   user.Password,
@@ -88,7 +88,7 @@ func (u *User) List(ctx context.Context, input *user_pb.UserListRequest) (*user_
 			CreateTime: user.CreatedAt.Format("2006-01-02 15:04:05"),
 		}
 	}
-	return &userPB.UserListResponse{
+	return &user_pb.UserListResponse{
 		Data: res,
 	}, nil
 }

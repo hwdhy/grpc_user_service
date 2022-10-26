@@ -3,7 +3,8 @@ package service
 import (
 	"context"
 	"errors"
-	"github.com/hwdhy/utools/common"
+	"github.com/casbin/casbin/v2"
+	"github.com/hwdhy/grpc_tools/common"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 	"grpc_demo"

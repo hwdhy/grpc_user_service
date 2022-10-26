@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"flag"
-	"github.com/hwdhy/utools/pb/user_pb"
+	"github.com/hwdhy/grpc_tools/pb/user_pb"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
