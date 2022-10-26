@@ -1,2 +1,2 @@
 build/app
-cert/*
+cert/*.pem
