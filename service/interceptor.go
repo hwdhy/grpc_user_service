@@ -4,10 +4,10 @@ import (
 	"context"
 	"errors"
 	"github.com/casbin/casbin/v2"
-	"github.com/hwdhy/grpc_tools/common"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 	"grpc_demo"
+	"grpc_tools/common"
 )
 
 type AuthInterceptor struct {

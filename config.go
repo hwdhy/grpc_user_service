@@ -6,6 +6,7 @@ const (
 	PgsqlPassword = "123456"
 	PgsqlDbname   = "hwdhy"
 	PgsqlPort     = 5432
+	PgsqlHost     = "8.8.8.8"
 
 	TokenKey = "hwdhy-0426-0125"
 )

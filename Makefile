@@ -1,5 +1,6 @@
 gen:
-	protoc -I ./proto --go_out=../tools/pb/user_pb/  --go-grpc_out=../tools/pb/user_pb/ --grpc-gateway_out=../tools/pb/user_pb/  proto/*.proto
+	protoc -I ./proto --go_out=./grpc_tools/pb/user_pb/  \
+		--go-grpc_out=./grpc_tools/pb/user_pb/ --grpc-gateway_out=./grpc_tools/pb/user_pb/  proto/*.proto
 
 run_grpc:
 	go run ./cmd/serve/main.go -port 50051

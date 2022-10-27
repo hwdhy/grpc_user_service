@@ -3,13 +3,13 @@ package service
 import (
 	"context"
 	"errors"
-	"github.com/hwdhy/grpc_tools/common"
-	"github.com/hwdhy/grpc_tools/pb/user_pb"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc/metadata"
 	"grpc_demo"
 	"grpc_demo/db"
 	"grpc_demo/models"
+	"grpc_tools/common"
+	"grpc_tools/pb/user_pb"
 )
 
 var UserPermission = map[string]int{

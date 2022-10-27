@@ -3,10 +3,10 @@ package main
 import (
 	"context"
 	"flag"
-	"github.com/hwdhy/grpc_tools/pb/user_pb"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
+	"grpc_tools/pb/user_pb"
 	"log"
 	"time"
 )

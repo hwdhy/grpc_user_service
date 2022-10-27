@@ -15,8 +15,8 @@ var PgsqlDB *gorm.DB
 // InitConnectionPgsql 数据库连接
 func InitConnectionPgsql() {
 	pDB, err := gorm.Open(postgres.New(postgres.Config{
-		DSN: fmt.Sprintf("user=%s password=%s dbname=%s port=%d sslmode=disable TimeZone=Asia/Shanghai",
-			grpc_demo.PgsqlUsername, grpc_demo.PgsqlPassword, grpc_demo.PgsqlDbname, grpc_demo.PgsqlPort),
+		DSN: fmt.Sprintf("user=%s password=%s dbname=%s host=%s port=%d sslmode=disable TimeZone=Asia/Shanghai",
+			grpc_demo.PgsqlUsername, grpc_demo.PgsqlPassword, grpc_demo.PgsqlDbname, grpc_demo.PgsqlHost, grpc_demo.PgsqlPort),
 		PreferSimpleProtocol: true,
 	}), &gorm.Config{})
 
