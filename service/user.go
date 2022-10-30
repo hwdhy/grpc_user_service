@@ -2,9 +2,10 @@ package service
 
 import (
 	"context"
-	"errors"
 	"github.com/sirupsen/logrus"
+	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/metadata"
+	"google.golang.org/grpc/status"
 	"grpc_demo"
 	"grpc_demo/db"
 	"grpc_demo/models"
@@ -39,8 +40,7 @@ func (u *User) Register(ctx context.Context, input *user_pb.UserRegisterRequest)
 		IP:       remoteIP,
 	}
 	if err := db.PgsqlDB.Model(models.User{}).Create(&userData).Error; err != nil {
-		logrus.Printf("register user err: %v", err)
-		return &user_pb.UserRegisterResponse{Status: "error"}, err
+		return nil, status.Errorf(codes.Internal, "create user err: %v", err)
 	}
 	logrus.Printf("create user(%+v) success", userData)
 
@@ -52,15 +52,15 @@ func (u *User) Login(ctx context.Context, input *user_pb.UserLoginRequest) (*use
 	// 1. 判断用户是否存在
 	var user models.User
 	if err := db.PgsqlDB.Model(models.User{}).Where("username = ?", input.Username).First(&user).Error; err != nil {
-		logrus.Errorf("find user(%s) err: %v", input.Username, err)
+		return nil, status.Errorf(codes.Internal, "can't find user, err: %v", err)
 	}
 	if user.ID == 0 {
-		return nil, errors.New("user not exist")
+		return nil, status.Errorf(codes.NotFound, "incorrect username/password")
 	}
 	// 2. 密码校验
 	hashPassword := common.StringHash(input.Password, user.Salt)
 	if hashPassword != user.Password {
-		return nil, errors.New("password does not match")
+		return nil, status.Error(codes.Internal, "password does not match")
 	}
 	logrus.Printf("user(%s) login success", input.Username)
 
@@ -73,12 +73,12 @@ func (u *User) List(ctx context.Context, input *user_pb.UserListRequest) (*user_
 
 	var users []models.User
 	if err := db.PgsqlDB.Model(models.User{}).Offset(int(offset)).Limit(int(input.PageSize)).Find(&users).Error; err != nil {
-		logrus.Errorf("select user err:%v", err)
+		return nil, status.Errorf(codes.Internal, "select user err: %v", err)
 	}
 
-	res := make([]*user_pb.UserList, len(users))
+	dataCount := len(users)
+	res := make([]*user_pb.UserList, dataCount)
 	for index, user := range users {
-
 		res[index] = &user_pb.UserList{
 			Id:         uint32(user.ID),
 			Username:   user.Username,
@@ -89,6 +89,7 @@ func (u *User) List(ctx context.Context, input *user_pb.UserListRequest) (*user_
 		}
 	}
 	return &user_pb.UserListResponse{
-		Data: res,
+		Count: uint32(dataCount),
+		Data:  res,
 	}, nil
 }

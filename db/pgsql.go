@@ -21,12 +21,12 @@ func InitConnectionPgsql() {
 	}), &gorm.Config{})
 
 	DB, err := pDB.DB()
-	DB.SetMaxOpenConns(100)
-	DB.SetConnMaxIdleTime(10)
-	DB.SetConnMaxLifetime(time.Minute)
 	if err != nil {
 		logrus.Fatalf("connect pgsql db err: %v", err)
 	}
+	DB.SetMaxOpenConns(100)
+	DB.SetConnMaxIdleTime(10)
+	DB.SetConnMaxLifetime(time.Minute)
 
 	PgsqlDB = pDB
 	_ = AutoMigrate()

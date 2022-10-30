@@ -28,9 +28,10 @@ func main() {
 		log.Fatalf("dial server err: %v", err)
 	}
 	defer conn.Close()
-	c := user_pb.NewUserClient(conn)
 
-	ctx, cancelFunc := context.WithTimeout(context.Background(), time.Second)
+	// 获取客户端对象
+	c := user_pb.NewUserClient(conn)
+	ctx, cancelFunc := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancelFunc()
 
 	//response, err := c.Register(ctx, &pb.UserRegisterRequest{
