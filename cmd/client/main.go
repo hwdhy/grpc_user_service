@@ -3,9 +3,13 @@ package main
 import (
 	"context"
 	"flag"
+	"fmt"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/balancer/roundrobin"
 	"google.golang.org/grpc/credentials/insecure"
+	"google.golang.org/grpc/resolver"
+	"grpc_demo/db"
 	"grpc_tools/pb/user_pb"
 	"log"
 	"time"
@@ -23,7 +27,10 @@ var (
 func main() {
 	flag.Parse()
 
-	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	etcdResolverBuilder := db.NewEtcdResolverBuilder()
+	resolver.Register(etcdResolverBuilder)
+
+	conn, err := grpc.Dial("etcd:///", grpc.WithDefaultServiceConfig(fmt.Sprintf(`{"LoadBalancingPolicy": "%s"}`, roundrobin.Name)), grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		log.Fatalf("dial server err: %v", err)
 	}
@@ -40,11 +47,11 @@ func main() {
 	//})
 
 	response, err := c.Login(ctx, &user_pb.UserLoginRequest{
-		Username: "1111",
-		Password: "2222",
+		Username: "admin",
+		Password: "123456",
 	})
 	if err != nil {
-		logrus.Fatalf("could not greet: %v", err)
+		logrus.Fatalf("could not user: %v", err)
 	}
 	logrus.Printf("create user %v", response.GetToken())
 }

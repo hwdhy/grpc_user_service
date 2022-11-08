@@ -24,7 +24,6 @@ func (interceptor *AuthInterceptor) Unary(enforcer *casbin.Enforcer) grpc.UnaryS
 		// 从context中获取请求头信息
 		md, _ := metadata.FromIncomingContext(ctx)
 		token := md["grpcgateway-cookie"][0]
-
 		// 解析用户ID
 		_, role := common.GetUserID(token, grpc_demo.TokenKey)
 		if role == "" {

@@ -4,7 +4,7 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	"grpc_demo/db"
@@ -15,6 +15,7 @@ import (
 	"math/rand"
 	"net"
 	"net/http"
+	"strconv"
 	"time"
 )
 
@@ -27,7 +28,6 @@ var (
 func main() {
 	flag.Parse()
 	rand.Seed(time.Now().UnixNano())
-	db.InitConnectionPgsql() // 初始化数据库连接
 
 	listen, err := net.Listen("tcp", fmt.Sprintf(":%d", *port))
 	if err != nil {
@@ -43,6 +43,8 @@ func main() {
 
 // 启动grpc服务
 func runGRPCServer(listen net.Listener) error {
+	db.InitConnectionPgsql() // 初始化数据库连接
+
 	//更新接口权限
 	e := common.InitAdapter([]map[string]int{
 		service.UserPermission,
@@ -55,6 +57,19 @@ func runGRPCServer(listen net.Listener) error {
 
 	server := grpc.NewServer(serverOptions...)
 	user_pb.RegisterUserServer(server, &service.User{})
+
+	etcdRegister, err := db.NewEtcdRegister()
+	if err != nil {
+		logrus.Fatal(err)
+	}
+	defer etcdRegister.Close()
+	serviceName := "user_service"
+	addr := net.JoinHostPort("127.0.0.1", strconv.Itoa(*port))
+
+	err = etcdRegister.RegisterServer("/etcd/"+serviceName, addr, 5)
+	if err != nil {
+		log.Fatalf("register error %v ", err)
+	}
 
 	logrus.Printf("server listening at %v", listen.Addr())
 	return server.Serve(listen)
