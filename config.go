@@ -1,4 +1,4 @@
-package grpc_demo
+package user_service
 
 // 配置文件后续改viper管理
 const (
