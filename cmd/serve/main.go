@@ -4,14 +4,14 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	"grpc_demo/db"
 	"grpc_demo/service"
 	"grpc_tools/common"
+	"grpc_tools/etcd"
 	"grpc_tools/pb/user_pb"
-	"log"
 	"math/rand"
 	"net"
 	"net/http"
@@ -31,7 +31,7 @@ func main() {
 
 	listen, err := net.Listen("tcp", fmt.Sprintf(":%d", *port))
 	if err != nil {
-		log.Fatalf("failed to listen: %v", err)
+		logrus.Fatalf("failed to listen: %v", err)
 	}
 
 	if *serverType == "grpc" {
@@ -58,7 +58,7 @@ func runGRPCServer(listen net.Listener) error {
 	server := grpc.NewServer(serverOptions...)
 	user_pb.RegisterUserServer(server, &service.User{})
 
-	etcdRegister, err := db.NewEtcdRegister()
+	etcdRegister, err := etcd.NewEtcdRegister()
 	if err != nil {
 		logrus.Fatal(err)
 	}
@@ -68,7 +68,7 @@ func runGRPCServer(listen net.Listener) error {
 
 	err = etcdRegister.RegisterServer("/etcd/"+serviceName, addr, 5)
 	if err != nil {
-		log.Fatalf("register error %v ", err)
+		logrus.Fatalf("register error %v ", err)
 	}
 
 	logrus.Printf("server listening at %v", listen.Addr())

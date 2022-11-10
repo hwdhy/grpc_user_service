@@ -23,8 +23,11 @@ func (interceptor *AuthInterceptor) Unary(enforcer *casbin.Enforcer) grpc.UnaryS
 	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
 		// 从context中获取请求头信息
 		md, _ := metadata.FromIncomingContext(ctx)
-		token := md["grpcgateway-cookie"][0]
-		// 解析用户ID
+		token := ""
+		if len(md["grpcgateway-cookie"]) > 0 {
+			token = md["grpcgateway-cookie"][0]
+		}
+		// 解析用户ID、角色ID
 		_, role := common.GetUserID(token, grpc_demo.TokenKey)
 		if role == "" {
 			role = "tourists"

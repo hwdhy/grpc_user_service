@@ -4,9 +4,8 @@ go 1.19
 
 require (
 	github.com/casbin/casbin/v2 v2.56.0
-	github.com/grpc-ecosystem/grpc-gateway v1.16.0
+	github.com/grpc-ecosystem/grpc-gateway/v2 v2.12.0
 	github.com/sirupsen/logrus v1.9.0
-	go.etcd.io/etcd/client/v3 v3.5.5
 	google.golang.org/grpc v1.50.1
 	gorm.io/driver/postgres v1.4.4
 	gorm.io/gorm v1.24.0
@@ -42,6 +41,7 @@ require (
 	github.com/remyoudompheng/bigfft v0.0.0-20200410134404-eec4a21b6bb0 // indirect
 	go.etcd.io/etcd/api/v3 v3.5.5 // indirect
 	go.etcd.io/etcd/client/pkg/v3 v3.5.5 // indirect
+	go.etcd.io/etcd/client/v3 v3.5.5 // indirect
 	go.uber.org/atomic v1.7.0 // indirect
 	go.uber.org/multierr v1.6.0 // indirect
 	go.uber.org/zap v1.17.0 // indirect
