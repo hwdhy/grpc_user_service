@@ -41,8 +41,5 @@ docker run -d -p 12379:2379 -p 12380:2380 -v etcd_data:/etcd-data/member \
       --initial-cluster--token tkn  --initial-cluster-state new
 ```
 
-- make run 启动grpc服务（make 需提前安装 无make使用go run ./cmd/serve/main.go启动）
+- make serve 启动grpc和rest服务（make 需提前安装 无make使用go run ./cmd/serve/main.go -host "127.0.0.1" -grpcPort 50051 -restPort 8080 启动）
 
-```shell
-make run_grpc
-```
