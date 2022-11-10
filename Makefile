@@ -15,7 +15,7 @@ client:
 	go run ./cmd/client/main.go
 
 secret:
-	cd cert && gen.sh && cd ..
+	cd grpc_tools/cert && gen.sh && cd ../..
 
 .PHONY:
 	gen run_grpc run_rest client secret run_grpc2
