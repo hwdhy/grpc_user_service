@@ -7,8 +7,8 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
-	"grpc_demo"
 	"grpc_tools/common"
+	"user_service"
 )
 
 type AuthInterceptor struct {

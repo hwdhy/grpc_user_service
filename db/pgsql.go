@@ -5,9 +5,9 @@ import (
 	"github.com/sirupsen/logrus"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-	"grpc_demo"
-	"grpc_demo/models"
 	"time"
+	"user_service"
+	"user_service/models"
 )
 
 var PgsqlDB *gorm.DB

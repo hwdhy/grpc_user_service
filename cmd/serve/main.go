@@ -7,8 +7,6 @@ import (
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
-	"grpc_demo/db"
-	"grpc_demo/service"
 	"grpc_tools/common"
 	"grpc_tools/etcd"
 	"grpc_tools/pb/user_pb"
@@ -17,6 +15,8 @@ import (
 	"net/http"
 	"strconv"
 	"time"
+	"user_service/db"
+	"user_service/service"
 )
 
 var (

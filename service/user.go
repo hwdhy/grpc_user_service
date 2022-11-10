@@ -6,11 +6,11 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
-	"grpc_demo"
-	"grpc_demo/db"
-	"grpc_demo/models"
 	"grpc_tools/common"
 	"grpc_tools/pb/user_pb"
+	"user_service"
+	"user_service/db"
+	"user_service/models"
 )
 
 var UserPermission = map[string]int{

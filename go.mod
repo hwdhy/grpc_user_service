@@ -1,4 +1,4 @@
-module grpc_demo
+module user_service
 
 go 1.19
 
