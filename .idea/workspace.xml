@@ -6,14 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="45cc2272-a487-44b0-ac8c-c8ad22d0f618" name="变更" comment="变更">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/client/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/client/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/serve/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/serve/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/pgsql.go" beforeDir="false" afterPath="$PROJECT_DIR$/db/pgsql.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/config.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/grpc_tools/pb/user_pb/user.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/grpc_tools/pb/user_pb/user.pb.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grpc_tools/pb/user_pb/user.pb.gw.go" beforeDir="false" afterPath="$PROJECT_DIR$/grpc_tools/pb/user_pb/user.pb.gw.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grpc_tools/pb/user_pb/user_grpc.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/grpc_tools/pb/user_pb/user_grpc.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proto/user.proto" beforeDir="false" afterPath="$PROJECT_DIR$/proto/user.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/user.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,13 +59,13 @@
     "go.sdk.automatically.set": "true",
     "io.github.will7200.plugins.casbin.model_def_file": "D:\\code\\hwdhy\\grpc_demo\\auth_model.conf",
     "io.github.will7200.plugins.casbin.policy_file": "D:\\code\\hwdhy\\grpc_demo\\policy.csv",
-    "last_opened_file_path": "D:/code/go_space/hwdhy/grpc_product_service",
+    "last_opened_file_path": "D:/code/go_space/hwdhy/grpc_user_service/proto/google",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "editor.preferences.fonts.default"
+    "settings.editor.selected.configurable": "protobuf.language"
   }
 }]]></component>
   <component name="RecentsManager">

@@ -4,7 +4,7 @@ package user_service
 const (
 	PgsqlUsername = "postgres"
 	PgsqlPassword = "123456"
-	PgsqlDbname   = "hwdhy"
+	PgsqlDbname   = "user"
 	PgsqlPort     = 5432
 	PgsqlHost     = "127.0.0.1"
 )

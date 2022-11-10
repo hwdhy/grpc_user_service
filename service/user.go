@@ -24,6 +24,13 @@ type User struct {
 
 // Register 用户注册
 func (u *User) Register(ctx context.Context, input *user_pb.UserRegisterRequest) (*user_pb.UserRegisterResponse, error) {
+	// 判断用户是否存在
+	var findUser models.User
+	db.PgsqlDB.Model(models.User{}).Where("username = ?", input.GetUsername()).First(&findUser)
+	if findUser.ID != 0 {
+		return nil, status.Errorf(codes.AlreadyExists, "user(%s) is already exists", input.GetUsername())
+	}
+
 	// 生成4为随机盐值
 	salt := common.RandomString(4)
 	hashPassword := common.StringHash(input.GetPassword(), salt)
@@ -43,7 +50,7 @@ func (u *User) Register(ctx context.Context, input *user_pb.UserRegisterRequest)
 	}
 	logrus.Printf("create user(%+v) success", userData)
 
-	return &user_pb.UserRegisterResponse{Status: "success"}, nil
+	return &user_pb.UserRegisterResponse{Code: uint32(codes.OK), Msg: "success"}, nil
 }
 
 // Login 用户登录
@@ -64,7 +71,7 @@ func (u *User) Login(ctx context.Context, input *user_pb.UserLoginRequest) (*use
 	logrus.Printf("user(%s) login success", input.Username)
 
 	token := common.GenerateToken(uint64(user.ID), user.Role)
-	return &user_pb.UserLoginResponse{Token: token}, nil
+	return &user_pb.UserLoginResponse{Code: uint32(codes.OK), Token: token}, nil
 }
 
 func (u *User) List(ctx context.Context, input *user_pb.UserListRequest) (*user_pb.UserListResponse, error) {
@@ -88,6 +95,7 @@ func (u *User) List(ctx context.Context, input *user_pb.UserListRequest) (*user_
 		}
 	}
 	return &user_pb.UserListResponse{
+		Code:  uint32(codes.OK),
 		Count: uint32(dataCount),
 		Data:  res,
 	}, nil

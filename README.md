@@ -24,7 +24,7 @@ git submodule update
 
 ## 4. 项目启动
 
-- 本地创建pgsql, 创建hwdhy数据库
+- 本地创建pgsql, 创建user数据库
 
 ```shell
 docker run --name mypostgres -d -p 5432:5432 -e POSTGRES_PASSWORD=123456 postgres
