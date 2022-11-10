@@ -9,6 +9,7 @@ import (
 	"google.golang.org/grpc"
 	"grpc_tools/common"
 	"grpc_tools/etcd"
+	interceptorTool "grpc_tools/interceptor"
 	"grpc_tools/pb/user_pb"
 	"math/rand"
 	"net"
@@ -58,7 +59,7 @@ func runGRPCServer(listen net.Listener) error {
 		service.UserPermission,
 	})
 
-	interceptor := service.NewAuthInterceptor()
+	interceptor := interceptorTool.NewAuthInterceptor()
 	serverOptions := []grpc.ServerOption{
 		grpc.UnaryInterceptor(interceptor.Unary(e)),
 	}
