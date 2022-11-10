@@ -23,7 +23,7 @@ func main() {
 	for i := 0; i < 10; i++ {
 		response, err := c.Login(ctx, &user_pb.UserLoginRequest{
 			Username: "admin",
-			Password: "123456",
+			Password: "Hello",
 		})
 		if err != nil {
 			logrus.Fatalf("user not find: %v", err)

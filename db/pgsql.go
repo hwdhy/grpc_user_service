@@ -19,7 +19,9 @@ func InitConnectionPgsql() {
 			user_service.PgsqlUsername, user_service.PgsqlPassword, user_service.PgsqlDbname, user_service.PgsqlHost, user_service.PgsqlPort),
 		PreferSimpleProtocol: true,
 	}), &gorm.Config{})
-
+	if err != nil {
+		logrus.Fatalf("connect pgsql db err: %v", err)
+	}
 	DB, err := pDB.DB()
 	if err != nil {
 		logrus.Fatalf("connect pgsql db err: %v", err)
