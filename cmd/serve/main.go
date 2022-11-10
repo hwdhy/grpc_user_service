@@ -4,7 +4,7 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	"grpc_tools/common"
@@ -20,25 +20,33 @@ import (
 )
 
 var (
-	port       = flag.Int("port", 50051, "the server port")
-	serverType = flag.String("type", "grpc", "type of server(grpc/rest)")
-	endpoint   = flag.String("endpoint", "0.0.0.0:8080", "grpc endpoint")
+	grpcPort          = flag.Int("grpcPort", 50051, "the grpc server port")
+	restPort          = flag.Int("restPort", 8080, "the rest server port")
+	host              = flag.String("host", "127.0.0.1", "the server host")
+	serviceName       = "userService"
+	etcdExpire  int64 = 5
 )
 
 func main() {
 	flag.Parse()
 	rand.Seed(time.Now().UnixNano())
 
-	listen, err := net.Listen("tcp", fmt.Sprintf(":%d", *port))
+	grpcListen, err := net.Listen("tcp", fmt.Sprintf(":%d", *grpcPort))
+	if err != nil {
+		logrus.Fatalf("failed to listen: %v", err)
+	}
+	restListen, err := net.Listen("tcp", fmt.Sprintf(":%d", *restPort))
 	if err != nil {
 		logrus.Fatalf("failed to listen: %v", err)
 	}
 
-	if *serverType == "grpc" {
-		logrus.Fatal(runGRPCServer(listen))
-	} else {
-		logrus.Fatal(runRESTServer(listen))
-	}
+	go func() {
+		err := runGRPCServer(grpcListen)
+		if err != nil {
+			logrus.Fatal(err)
+		}
+	}()
+	logrus.Fatal(runRESTServer(restListen))
 }
 
 // 启动grpc服务
@@ -63,10 +71,9 @@ func runGRPCServer(listen net.Listener) error {
 		logrus.Fatal(err)
 	}
 	defer etcdRegister.Close()
-	serviceName := "user_service"
-	addr := net.JoinHostPort("127.0.0.1", strconv.Itoa(*port))
+	addr := net.JoinHostPort(*host, strconv.Itoa(*grpcPort))
 
-	err = etcdRegister.RegisterServer("/etcd/"+serviceName, addr, 5)
+	err = etcdRegister.RegisterServer("/etcd/"+serviceName, addr, etcdExpire)
 	if err != nil {
 		logrus.Fatalf("register error %v ", err)
 	}
@@ -77,15 +84,15 @@ func runGRPCServer(listen net.Listener) error {
 
 // 启动rest服务
 func runRESTServer(listen net.Listener) error {
+	conn := etcd.ClientConn(serviceName)
+	if conn == nil {
+		logrus.Fatalf("get grpc client err")
+	}
+
 	mux := runtime.NewServeMux()
-	dialOptions := []grpc.DialOption{grpc.WithInsecure()}
-
-	ctx, cancelFunc := context.WithCancel(context.Background())
-	defer cancelFunc()
-
-	err := user_pb.RegisterUserHandlerFromEndpoint(ctx, mux, *endpoint, dialOptions)
+	err := user_pb.RegisterUserHandler(context.Background(), mux, conn)
 	if err != nil {
-		logrus.Fatal(err)
+		logrus.Fatalf("register user handler err: %v", err)
 	}
 
 	logrus.Printf("start REST server at %s", listen.Addr())

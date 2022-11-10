@@ -7,63 +7,63 @@ package grpc_hwdhy;
 import "google/api/annotations.proto";
 
 service User {
-    rpc Register (UserRegisterRequest) returns (UserRegisterResponse) {
-        option (google.api.http) = {
-            post: "/v1/user/register"
-            body: "*"
-        };
-    }
+  rpc Register (UserRegisterRequest) returns (UserRegisterResponse) {
+    option (google.api.http) = {
+      post: "/v1/user/register"
+      body: "*"
+    };
+  }
 
-    rpc List (UserListRequest) returns (UserListResponse) {
-        option (google.api.http) = {
-            post: "/v1/user/list"
-            body: "*"
-        };
-    }
+  rpc List (UserListRequest) returns (UserListResponse) {
+    option (google.api.http) = {
+      post: "/v1/user/list"
+      body: "*"
+    };
+  }
 
-    rpc Login (UserLoginRequest) returns (UserLoginResponse) {
-        option (google.api.http) = {
-            post: "/v1/user/login"
-            body: "*"
-        };
-    }
+  rpc Login (UserLoginRequest) returns (UserLoginResponse) {
+    option (google.api.http) = {
+      post: "/v1/user/login"
+      body: "*"
+    };
+  }
 }
 
 // user register
 message UserRegisterRequest {
-    string username = 1;
-    string password = 2;
-    string user_type = 3;
+  string username = 1;
+  string password = 2;
+  string user_type = 3;
 }
 
 message UserRegisterResponse {
-    string status = 1;
+  string status = 1;
 }
 
 message UserLoginRequest {
-    string username = 1;
-    string password = 2;
+  string username = 1;
+  string password = 2;
 }
 
 message UserLoginResponse {
-    string token = 1;
+  string token = 1;
 }
 
 message UserListRequest {
-    uint32 page = 1;
-    uint32 page_size = 2;
+  uint32 page = 1;
+  uint32 page_size = 2;
 }
 
 message UserListResponse {
-    uint32 count = 1;
-    repeated UserList data = 2;
+  uint32 count = 1;
+  repeated UserList data = 2;
 }
 
 message UserList {
-    uint32 id = 1;
-    string username = 2;
-    string password = 3;
-    string type = 4;
-    string ip = 5;
-    string create_time = 6;
+  uint32 id = 1;
+  string username = 2;
+  string password = 3;
+  string type = 4;
+  string ip = 5;
+  string create_time = 6;
 }

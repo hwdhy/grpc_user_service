@@ -7,7 +7,7 @@ import (
 
 // User 用户表
 type User struct {
-	ID        uint   `gorm:"primarykey"`
+	ID        uint   `gorm:"primaryKey"`
 	Username  string // 用户名称
 	Password  string //用户密码
 	Salt      string // 密码盐值

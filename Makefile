@@ -2,14 +2,11 @@ gen:
 	protoc -I ./proto --go_out=./grpc_tools/pb/user_pb/  \
 		--go-grpc_out=./grpc_tools/pb/user_pb/ --grpc-gateway_out=./grpc_tools/pb/user_pb/  proto/*.proto
 
-run_grpc:
-	go run ./cmd/serve/main.go -port 50051
+serve:
+	go run ./cmd/serve/main.go -host "127.0.0.1" -grpcPort 50051 -restPort 8080
 
-run_grpc2:
-	go run ./cmd/serve/main.go -port 50052
-
-run_rest:
-	go run ./cmd/serve/main.go -type rest -port 8080 -endpoint 0.0.0.0:50051
+serve2:
+	go run ./cmd/serve/main.go -host "127.0.0.1" -grpcPort 50052 -restPort 8081
 
 client:
 	go run ./cmd/client/main.go

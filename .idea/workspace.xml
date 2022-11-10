@@ -5,9 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="45cc2272-a487-44b0-ac8c-c8ad22d0f618" name="变更" comment="变更">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth_model.conf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/grpc_tools/common/casbin.go" beforeDir="false" afterPath="$PROJECT_DIR$/grpc_tools/common/casbin.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/client/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/client/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/serve/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/serve/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grpc_tools/pb/user_pb/user.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/grpc_tools/pb/user_pb/user.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grpc_tools/pb/user_pb/user.pb.gw.go" beforeDir="false" afterPath="$PROJECT_DIR$/grpc_tools/pb/user_pb/user.pb.gw.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grpc_tools/pb/user_pb/user_grpc.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/grpc_tools/pb/user_pb/user_grpc.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proto/user.proto" beforeDir="false" afterPath="$PROJECT_DIR$/proto/user.proto" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,7 +32,7 @@
   </component>
   <component name="GOROOT" url="file://C:/Program Files/Go" />
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/grpc_tools" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
   <component name="HighlightingSettingsPerFile">
