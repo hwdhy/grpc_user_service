@@ -8,7 +8,6 @@ import (
 	"google.golang.org/grpc/status"
 	"grpc_tools/common"
 	"grpc_tools/pb/user_pb"
-	"user_service"
 	"user_service/db"
 	"user_service/models"
 )
@@ -64,7 +63,7 @@ func (u *User) Login(ctx context.Context, input *user_pb.UserLoginRequest) (*use
 	}
 	logrus.Printf("user(%s) login success", input.Username)
 
-	token := common.GenerateToken(uint64(user.ID), user.Role, user_service.TokenKey)
+	token := common.GenerateToken(uint64(user.ID), user.Role)
 	return &user_pb.UserLoginResponse{Token: token}, nil
 }
 
