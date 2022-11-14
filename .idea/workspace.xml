@@ -6,10 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="45cc2272-a487-44b0-ac8c-c8ad22d0f618" name="变更" comment="变更">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/client/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/client/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grpc_tools/common/constract.go" beforeDir="false" afterPath="$PROJECT_DIR$/grpc_tools/common/constract.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grpc_tools/interceptor/interceptor.go" beforeDir="false" afterPath="$PROJECT_DIR$/grpc_tools/interceptor/interceptor.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/grpc_tools/pb/user_pb/user.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/grpc_tools/pb/user_pb/user.pb.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grpc_tools/pb/user_pb/user.pb.gw.go" beforeDir="false" afterPath="$PROJECT_DIR$/grpc_tools/pb/user_pb/user.pb.gw.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grpc_tools/pb/user_pb/user_grpc.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/grpc_tools/pb/user_pb/user_grpc.pb.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/proto/user.proto" beforeDir="false" afterPath="$PROJECT_DIR$/proto/user.proto" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/user.go" afterDir="false" />
     </list>
@@ -41,33 +43,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "DefaultGoTemplateProperty": "Go File",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
-    "RunOnceActivity.go.watchers.conflict.with.on.save.actions.check.performed": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "configurable..is.expanded": "false",
-    "configurable.GoLibrariesConfigurable.is.expanded": "true",
-    "go.import.settings.migrated": "true",
-    "go.sdk.automatically.set": "true",
-    "io.github.will7200.plugins.casbin.model_def_file": "D:\\code\\hwdhy\\grpc_demo\\auth_model.conf",
-    "io.github.will7200.plugins.casbin.policy_file": "D:\\code\\hwdhy\\grpc_demo\\policy.csv",
-    "last_opened_file_path": "D:/code/go_space/hwdhy/grpc_user_service/proto/google",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "protobuf.language"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.watchers.conflict.with.on.save.actions.check.performed&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;configurable..is.expanded&quot;: &quot;false&quot;,
+    &quot;configurable.GoLibrariesConfigurable.is.expanded&quot;: &quot;true&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
+    &quot;io.github.will7200.plugins.casbin.model_def_file&quot;: &quot;D:\\code\\hwdhy\\grpc_demo\\auth_model.conf&quot;,
+    &quot;io.github.will7200.plugins.casbin.policy_file&quot;: &quot;D:\\code\\hwdhy\\grpc_demo\\policy.csv&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/code/go_space/hwdhy/grpc_user_service/proto/google&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;protobuf.language&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\code\hwdhy\user" />

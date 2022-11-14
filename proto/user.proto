@@ -27,6 +27,13 @@ service User {
             body: "*"
         };
     }
+
+    rpc Detail (UserInfoRequest) returns (UserList) {
+        option (google.api.http) = {
+            post: "/v1/user/info"
+            body: "*"
+        };
+    }
 }
 
 // user register
@@ -69,4 +76,9 @@ message UserList {
     string type = 4;
     string ip = 5;
     string create_time = 6;
+}
+
+message UserInfoRequest {
+    uint32 id = 1;
+    string username = 2;
 }

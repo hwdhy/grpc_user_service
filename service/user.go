@@ -6,6 +6,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
+	"gorm.io/gorm"
 	"grpc_tools/common"
 	"grpc_tools/pb/user_pb"
 	"user_service/db"
@@ -16,6 +17,7 @@ var UserPermission = map[string]int{
 	"/grpc_hwdhy.User/List":     common.Admin,
 	"/grpc_hwdhy.User/Register": common.NotLogged,
 	"/grpc_hwdhy.User/Login":    common.NotLogged,
+	"/grpc_hwdhy.User/Detail":   common.HasLogged,
 }
 
 type User struct {
@@ -75,6 +77,11 @@ func (u *User) Login(ctx context.Context, input *user_pb.UserLoginRequest) (*use
 }
 
 func (u *User) List(ctx context.Context, input *user_pb.UserListRequest) (*user_pb.UserListResponse, error) {
+	// 当前角色不为管理员
+	if ctx.Value("role").(string) != common.RoleName[common.Admin] {
+		return nil, status.Errorf(codes.PermissionDenied, "there are no permissions")
+	}
+
 	offset := (input.Page - 1) * input.PageSize
 
 	var users []models.User
@@ -99,4 +106,31 @@ func (u *User) List(ctx context.Context, input *user_pb.UserListRequest) (*user_
 		Count: uint32(dataCount),
 		Data:  res,
 	}, nil
+}
+
+func (u *User) Detail(ctx context.Context, input *user_pb.UserInfoRequest) (*user_pb.UserList, error) {
+	if input.GetId() == 0 || input.GetUsername() == "" {
+		return nil, status.Errorf(codes.InvalidArgument, "Invalid parameter")
+	}
+
+	// 当前角色不为管理员  && 非管理员用户查询自己之外的角色信息
+	if ctx.Value("role").(string) != common.RoleName[common.Admin] && ctx.Value("userId").(uint64) != uint64(input.GetId()) {
+		return nil, status.Errorf(codes.PermissionDenied, "there are no permissions")
+	}
+
+	var user models.User
+	if err := db.PgsqlDB.Model(models.User{}).Where("id = ? ", input.Id).
+		Where("username = ?", input.Username).First(&user).Error; err != nil && err != gorm.ErrRecordNotFound {
+		return nil, status.Errorf(codes.NotFound, "user(%s) not found", input.Username)
+	}
+
+	res := &user_pb.UserList{
+		Id:         uint32(user.ID),
+		Username:   user.Username,
+		Password:   user.Password,
+		Type:       user.Type,
+		Ip:         user.IP,
+		CreateTime: user.CreatedAt.Format("2006-01-02 15:04:05"),
+	}
+	return res, nil
 }
