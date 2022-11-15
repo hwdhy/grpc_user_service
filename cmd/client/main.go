@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	conn := etcd.ClientConn("userService")
+	conn := etcd.ClientConn("userService", 2, "hwdhy")
 	if conn == nil {
 		logrus.Fatalf("get grpc client err")
 	}
@@ -21,13 +21,13 @@ func main() {
 	defer cancelFunc()
 
 	for i := 0; i < 10; i++ {
-		response, err := c.Login(ctx, &user_pb.UserLoginRequest{
-			Username: "admin",
-			Password: "123456",
+		response, err := c.List(ctx, &user_pb.UserListRequest{
+			Page:     1,
+			PageSize: 10,
 		})
 		if err != nil {
 			logrus.Fatalf("user not find: %v", err)
 		}
-		logrus.Printf("login success, count : %d, token: %v", i, response.GetToken())
+		logrus.Printf("login success, count : %d, token: %v", i, response.GetCount())
 	}
 }

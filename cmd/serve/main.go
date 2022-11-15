@@ -85,7 +85,7 @@ func runGRPCServer(listen net.Listener) error {
 
 // 启动rest服务
 func runRESTServer(listen net.Listener) error {
-	conn := etcd.ClientConn(serviceName)
+	conn := etcd.ClientConn(serviceName, 0, "")
 	if conn == nil {
 		logrus.Fatalf("get grpc client err")
 	}
