@@ -7,10 +7,13 @@
     <list default="true" id="45cc2272-a487-44b0-ac8c-c8ad22d0f618" name="变更" comment="变更">
       <change afterPath="$PROJECT_DIR$/test/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/serve/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/serve/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/grpc_tools/common/casbin.go" beforeDir="false" afterPath="$PROJECT_DIR$/grpc_tools/common/casbin.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/proto/user.proto" beforeDir="false" afterPath="$PROJECT_DIR$/proto/user.proto" afterDir="false" />
+=======
+>>>>>>> f3cad9e3eb41a5d43fc33f91928460d4c8d948bf
       <change beforePath="$PROJECT_DIR$/service/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/user.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -31,7 +34,13 @@
     <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
   <component name="HighlightingSettingsPerFile">
+<<<<<<< HEAD
     <setting file="file://$PROJECT_DIR$/../../../../dev/goPackage/go/pkg/mod/google.golang.org/grpc@v1.50.1/dialoptions.go" root0="SKIP_INSPECTION" />
+=======
+    <setting file="file://C:/Program Files/Go/src/encoding/json/encode.go" root0="SKIP_INSPECTION" />
+    <setting file="file://C:/Program Files/Go/src/strings/strings.go" root0="SKIP_INSPECTION" />
+    <setting file="file://$USER_HOME$/go/pkg/mod/google.golang.org/grpc@v1.50.1/metadata/metadata.go" root0="SKIP_INSPECTION" />
+>>>>>>> f3cad9e3eb41a5d43fc33f91928460d4c8d948bf
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
