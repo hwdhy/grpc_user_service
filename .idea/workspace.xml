@@ -5,9 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="45cc2272-a487-44b0-ac8c-c8ad22d0f618" name="变更" comment="变更">
+      <change afterPath="$PROJECT_DIR$/test/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/client/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/client/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grpc_tools/interceptor/interceptor.go" beforeDir="false" afterPath="$PROJECT_DIR$/grpc_tools/interceptor/interceptor.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/serve/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/serve/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grpc_tools/common/casbin.go" beforeDir="false" afterPath="$PROJECT_DIR$/grpc_tools/common/casbin.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proto/user.proto" beforeDir="false" afterPath="$PROJECT_DIR$/proto/user.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/user.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,8 +27,11 @@
   </component>
   <component name="GOROOT" url="file://$PROJECT_DIR$/../../../../dev/Go" />
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/grpc_tools" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/../../../../dev/goPackage/go/pkg/mod/google.golang.org/grpc@v1.50.1/dialoptions.go" root0="SKIP_INSPECTION" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -55,13 +62,13 @@
     &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
     &quot;io.github.will7200.plugins.casbin.model_def_file&quot;: &quot;D:\\code\\hwdhy\\grpc_demo\\auth_model.conf&quot;,
     &quot;io.github.will7200.plugins.casbin.policy_file&quot;: &quot;D:\\code\\hwdhy\\grpc_demo\\policy.csv&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/code/go_space/hwdhy/grpc_user_service/proto/google&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/code/go_space/dhy_rpc&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;protobuf.language&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -72,14 +79,14 @@
       <recent name="D:\code\demo\grpc_demo\proto" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\code\go_space\hwdhy\grpc_user_service" />
       <recent name="D:\code\hwdhy\user\grpc_tools" />
       <recent name="D:\code\hwdhy\grpc_demo\grpc_tools\etcd" />
       <recent name="D:\code\hwdhy\grpc_demo\test" />
       <recent name="D:\code\hwdhy\grpc_demo" />
-      <recent name="D:\code\hwdhy\utools\common" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="HTTP Request.generated-requests | #3">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="user" />
       <working_directory value="$PROJECT_DIR$" />
@@ -99,6 +106,12 @@
       <framework value="gotest" />
       <method v="2" />
     </configuration>
+    <configuration name="generated-requests | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" requestIdentifier="#1" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="generated-requests | #3" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="3" requestIdentifier="#3" runType="Run single request">
+      <method v="2" />
+    </configuration>
     <configuration name="build_linux.sh" type="ShConfigurationType" temporary="true">
       <option name="SCRIPT_TEXT" value="" />
       <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
@@ -116,6 +129,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="HTTP Request.generated-requests | #3" />
+        <item itemvalue="HTTP Request.generated-requests | #1" />
         <item itemvalue="Shell Script.build_linux.sh" />
       </list>
     </recent_temporary>

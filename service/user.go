@@ -39,6 +39,9 @@ func (u *User) Register(ctx context.Context, input *user_pb.UserRegisterRequest)
 
 	// get request ip
 	md, _ := metadata.FromIncomingContext(ctx)
+	if len(md["x-forwarded-for"]) == 0 {
+		return nil, status.Errorf(codes.Unknown, "ip address error")
+	}
 	remoteIP := md["x-forwarded-for"][0]
 
 	userData := models.User{

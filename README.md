@@ -38,7 +38,7 @@ docker run -d -p 12379:2379 -p 12380:2380 -v etcd_data:/etcd-data/member \
   --name s1 --data-dir /etcd-data --listen-client-urls http://0.0.0.0:2379 \
    --advertise-client-urls http://0.0.0.0:2379 --listen-peer-urls http://0.0.0.0:2380 \
      --initial-advertise-peer-urls http://0.0.0.0:2380  --initial-cluster s1=http://0.0.0.0:2380 \
-      --initial-cluster--token tkn  --initial-cluster-state new
+      --initial-cluster-token tkn  --initial-cluster-state new
 ```
 
 - make serve 启动grpc和rest服务（make 需提前安装 无make使用go run ./cmd/serve/main.go -host "127.0.0.1" -grpcPort 50051 -restPort 8080 启动）

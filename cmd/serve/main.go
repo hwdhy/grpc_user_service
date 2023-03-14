@@ -11,11 +11,9 @@ import (
 	"grpc_tools/etcd"
 	interceptorTool "grpc_tools/interceptor"
 	"grpc_tools/pb/user_pb"
-	"math/rand"
 	"net"
 	"net/http"
 	"strconv"
-	"time"
 	"user_service/db"
 	"user_service/service"
 )
@@ -30,7 +28,6 @@ var (
 
 func main() {
 	flag.Parse()
-	rand.Seed(time.Now().UnixNano())
 
 	grpcListen, err := net.Listen("tcp", fmt.Sprintf(":%d", *grpcPort))
 	if err != nil {

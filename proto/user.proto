@@ -7,6 +7,7 @@ package grpc_hwdhy;
 import "google/api/annotations.proto";
 
 service User {
+    // 注册
     rpc Register (UserRegisterRequest) returns (UserRegisterResponse) {
         option (google.api.http) = {
             post: "/v1/user/register"
@@ -14,6 +15,7 @@ service User {
         };
     }
 
+    // 列表
     rpc List (UserListRequest) returns (UserListResponse) {
         option (google.api.http) = {
             post: "/v1/user/list"
@@ -21,6 +23,7 @@ service User {
         };
     }
 
+    //登录
     rpc Login (UserLoginRequest) returns (UserLoginResponse) {
         option (google.api.http) = {
             post: "/v1/user/login"
@@ -28,6 +31,7 @@ service User {
         };
     }
 
+    // 详情
     rpc Detail (UserInfoRequest) returns (UserList) {
         option (google.api.http) = {
             post: "/v1/user/info"
